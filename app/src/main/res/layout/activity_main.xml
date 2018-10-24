@@ -16,15 +16,52 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textColor="@android:color/white"
-        android:textSize="40sp"
+        android:textSize="30sp"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <com.hanks.htextview.fall.FallTextView
+            android:id="@+id/ftv_lunar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            />
+
+        <com.hanks.htextview.fall.FallTextView
+            android:id="@+id/ftv_suit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            />
+
+        <com.hanks.htextview.fall.FallTextView
+            android:id="@+id/ftv_taboo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            />
+
+    </LinearLayout>
 
     <com.hanks.htextview.fall.FallTextView
         android:id="@+id/ftv_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:paddingTop="20dp"
         android:textColor="@android:color/white"
         android:textSize="150sp"
         />
