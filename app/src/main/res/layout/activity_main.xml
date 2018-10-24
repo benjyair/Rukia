@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context="io.benjyair.rukia.MainActivity"
     >
 
@@ -13,8 +14,8 @@
         android:id="@+id/ftv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal|bottom"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/white"
         android:textSize="40sp"
         />
 
@@ -22,10 +23,38 @@
         android:id="@+id/ftv_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
         android:gravity="center_horizontal"
         android:paddingTop="20dp"
+        android:textColor="@android:color/white"
         android:textSize="150sp"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <com.hanks.htextview.fall.FallTextView
+            android:id="@+id/ftv_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            />
+
+        <com.hanks.htextview.fall.FallTextView
+            android:id="@+id/ftv_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>
