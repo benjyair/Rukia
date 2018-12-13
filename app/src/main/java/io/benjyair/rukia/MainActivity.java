@@ -1,5 +1,6 @@
 package io.benjyair.rukia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -15,9 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements TimeListener {
+public class MainActivity extends AppCompatActivity implements TimeListener, View.OnClickListener {
 
     private static final String TAG = "MainActivity";
+    public static final int CMD_CITY = 0x01;
 
     private static final int WHAT_TIME = 0x01;
     private static final int WHAT_WEATHER = 0x02;
@@ -26,10 +28,17 @@ public class MainActivity extends AppCompatActivity implements TimeListener {
     private static final SimpleDateFormat SDF_DATE =
             new SimpleDateFormat("yyyy年MM月dd日  E  a", Locale.CHINA);
 
+    private SharePreferencesUtil preferencesUtil;
+
+    private TextView tv_setting;
+
     private TextView ftv_date;
     private TextView ftv_time;
+
     private TextView ftv_weather;
     private TextView ftv_notice;
+    private TextView tv_update_time;
+
     private TimeHandler timeHandler = new TimeHandler();
     private final HttpUtil httpUtil = new HttpUtil();
     private Gson gson = new GsonBuilder().create();
@@ -44,10 +53,21 @@ public class MainActivity extends AppCompatActivity implements TimeListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        ftv_date = findViewById(R.id.ftv_date);
-        ftv_time = findViewById(R.id.ftv_time);
-        ftv_weather = findViewById(R.id.ftv_weather);
-        ftv_notice = findViewById(R.id.ftv_notice);
+        preferencesUtil = new SharePreferencesUtil(this);
+
+        tv_setting = findViewById(R.id.tv_setting);
+        tv_setting.setText(preferencesUtil.getCurrentCityName());
+        tv_setting.setOnClickListener(this);
+
+        tv_update_time = findViewById(R.id.tv_update_time);
+        tv_update_time.setOnClickListener(this);
+
+        ftv_date = findViewById(R.id.tv_date);
+        ftv_time = findViewById(R.id.tv_time);
+
+        ftv_weather = findViewById(R.id.tv_weather);
+        ftv_notice = findViewById(R.id.tv_notice);
+        tv_update_time = findViewById(R.id.tv_update_time);
 
         timeHandler.setTimerListener(this);
         timeHandler.addMessage(WHAT_TIME, 1000L);
@@ -73,6 +93,24 @@ public class MainActivity extends AppCompatActivity implements TimeListener {
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_setting:
+                startActivityForResult(new Intent(this, CityActivity.class), 0x01);
+                break;
+            case R.id.tv_update_time:
+                refreshWeather();
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refreshWeather();
+    }
+
+    @Override
     public boolean onUpdate(int what) {
         Log.d(TAG, "onUpdate() called with: " + "what = [" + what + "]");
         switch (what) {
@@ -81,10 +119,15 @@ public class MainActivity extends AppCompatActivity implements TimeListener {
                 ftv_date.setText(SDF_DATE.format(new Date(System.currentTimeMillis())));
                 break;
             case WHAT_WEATHER:
-                getWeather("101010300" /* Beijing */);
+                getWeather(preferencesUtil.getCurrentCityCode());
                 break;
         }
         return true;
+    }
+
+    private void refreshWeather() {
+        timeHandler.removeMessage(WHAT_WEATHER);
+        timeHandler.addMessage(WHAT_WEATHER, 60 * 60 * 1000L);
     }
 
     private void getWeather(final String cityCode) {
@@ -125,6 +168,12 @@ public class MainActivity extends AppCompatActivity implements TimeListener {
                                     today.getAqi(),
                                     today.getNotice());
                             ftv_notice.setText(noticeStr);
+
+                            String time = SDF_TIME.format(new Date(System.currentTimeMillis()));
+                            tv_update_time.setText(String.format("%s 更新", time));
+
+                            tv_setting.setText(preferencesUtil.getCurrentCityName());
+
                             switchWeather(true);
                         }
                     });
@@ -135,10 +184,10 @@ public class MainActivity extends AppCompatActivity implements TimeListener {
         }).start();
     }
 
-
     private void switchWeather(boolean status) {
         ftv_weather.setVisibility(status ? View.VISIBLE : View.GONE);
         ftv_notice.setVisibility(status ? View.VISIBLE : View.GONE);
+        tv_update_time.setVisibility(status ? View.VISIBLE : View.GONE);
     }
 
 }

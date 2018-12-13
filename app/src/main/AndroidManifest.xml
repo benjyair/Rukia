@@ -25,6 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".CityActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:theme="@style/main"
+            />
+
     </application>
 
 </manifest>
