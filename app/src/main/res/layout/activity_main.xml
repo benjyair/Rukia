@@ -1,97 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="10dp"
     tools:context="io.benjyair.rukia.MainActivity"
     >
 
-    <com.hanks.htextview.fall.FallTextView
+    <TextView
         android:id="@+id/ftv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_weight="1"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <com.hanks.htextview.fall.FallTextView
-            android:id="@+id/ftv_lunar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            />
-
-        <com.hanks.htextview.fall.FallTextView
-            android:id="@+id/ftv_suit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            />
-
-        <com.hanks.htextview.fall.FallTextView
-            android:id="@+id/ftv_taboo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            />
-
-    </LinearLayout>
-
-    <com.hanks.htextview.fall.FallTextView
+    <TextView
         android:id="@+id/ftv_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_weight="8"
+        android:gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="150sp"
+        app:autoSizeMaxTextSize="200sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
         />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/ftv_weather"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:ellipsize="marquee"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:visibility="gone"
+        />
 
-        <com.hanks.htextview.fall.FallTextView
-            android:id="@+id/ftv_weather"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            />
-
-        <com.hanks.htextview.fall.FallTextView
-            android:id="@+id/ftv_notice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/ftv_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:ellipsize="marquee"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:visibility="gone"
+        />
 
 </LinearLayout>
