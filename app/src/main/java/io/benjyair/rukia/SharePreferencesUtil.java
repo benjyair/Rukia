@@ -12,7 +12,7 @@ public class SharePreferencesUtil {
     }
 
     public String getCurrentCityName() {
-        return sharedPreferences.getString("name", "北京市");
+        return sharedPreferences.getString("name", "北京");
     }
 
     public String getCurrentCityCode() {

@@ -58,7 +58,7 @@ public class CityActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         City city = cities.get(position);
         preferencesUtil.setCurrentCity(city.getName(), city.getCode());
-        setResult(MainActivity.CMD_CITY);
+        setResult(RESULT_OK);
         finish();
     }
 

@@ -19,14 +19,13 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements TimeListener, View.OnClickListener {
 
     private static final String TAG = "MainActivity";
-    public static final int CMD_CITY = 0x01;
-
-    private static final int WHAT_TIME = 0x01;
-    private static final int WHAT_WEATHER = 0x02;
 
     private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("HH:mm:ss", Locale.CHINA);
     private static final SimpleDateFormat SDF_DATE =
             new SimpleDateFormat("yyyy年MM月dd日  E  a", Locale.CHINA);
+
+    private static final int WHAT_TIME = 0x01;
+    private static final int WHAT_WEATHER = 0x02;
 
     private final HttpUtil httpUtil = new HttpUtil();
     private final Gson gson = new GsonBuilder().create();
