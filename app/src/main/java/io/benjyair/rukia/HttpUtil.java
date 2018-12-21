@@ -38,7 +38,6 @@ public class HttpUtil {
             }
             String result = new String(baos.toByteArray(), CHARSET);
             Log.i(TAG, "Res  ： " + result);
-            Log.i(TAG, "----------------------------------HTTP----------------------------------");
             return result;
         } catch (IOException e) {
             Log.e(TAG, "post()", e);
@@ -57,6 +56,7 @@ public class HttpUtil {
             } catch (IOException e) {
                 // Nothing
             }
+            Log.i(TAG, "----------------------------------HTTP----------------------------------");
         }
     }
 

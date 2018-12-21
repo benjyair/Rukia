@@ -60,7 +60,6 @@
         android:ellipsize="marquee"
         android:textColor="@android:color/white"
         android:textSize="17sp"
-        android:visibility="gone"
         />
 
     <LinearLayout
@@ -79,7 +78,6 @@
             android:ellipsize="marquee"
             android:textColor="@android:color/white"
             android:textSize="17sp"
-            android:visibility="gone"
             />
 
         <TextView
@@ -89,7 +87,7 @@
             android:gravity="bottom"
             android:textColor="@android:color/white"
             android:textSize="10sp"
-            android:visibility="gone"
+            android:text="更新"
             />
 
     </LinearLayout>

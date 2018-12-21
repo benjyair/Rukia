@@ -28,7 +28,12 @@ public class MainActivity extends AppCompatActivity implements TimeListener, Vie
     private static final SimpleDateFormat SDF_DATE =
             new SimpleDateFormat("yyyy年MM月dd日  E  a", Locale.CHINA);
 
+    private final HttpUtil httpUtil = new HttpUtil();
+    private final Gson gson = new GsonBuilder().create();
+    private final TimeHandler timeHandler = new TimeHandler();
+
     private SharePreferencesUtil preferencesUtil;
+    private boolean pauseFlag = false;
 
     private TextView tv_setting;
 
@@ -38,11 +43,6 @@ public class MainActivity extends AppCompatActivity implements TimeListener, Vie
     private TextView ftv_weather;
     private TextView ftv_notice;
     private TextView tv_update_time;
-
-    private TimeHandler timeHandler = new TimeHandler();
-    private final HttpUtil httpUtil = new HttpUtil();
-    private Gson gson = new GsonBuilder().create();
-    private boolean pauseFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,12 +139,12 @@ public class MainActivity extends AppCompatActivity implements TimeListener, Vie
                             "http://t.weather.sojson.com/api/weather/city/%s", cityCode);
                     String result = httpUtil.get(apiUrl);
                     if (TextUtils.isEmpty(result)) {
-                        switchWeather(false);
+                        Log.i(TAG, "No weather data");
                         return;
                     }
                     final Weather weather = gson.fromJson(result, Weather.class);
                     if (weather == null || weather.getStatus() != 200) {
-                        switchWeather(false);
+                        Log.i(TAG, "No weather data");
                         return;
                     }
                     runOnUiThread(new Runnable() {
@@ -173,21 +173,13 @@ public class MainActivity extends AppCompatActivity implements TimeListener, Vie
                             tv_update_time.setText(String.format("%s 更新", time));
 
                             tv_setting.setText(preferencesUtil.getCurrentCityName());
-
-                            switchWeather(true);
                         }
                     });
                 } catch (Exception e) {
-                    switchWeather(false);
+                    Log.i(TAG, "No weather data");
                 }
             }
         }).start();
-    }
-
-    private void switchWeather(boolean status) {
-        ftv_weather.setVisibility(status ? View.VISIBLE : View.GONE);
-        ftv_notice.setVisibility(status ? View.VISIBLE : View.GONE);
-        tv_update_time.setVisibility(status ? View.VISIBLE : View.GONE);
     }
 
 }
